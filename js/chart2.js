@@ -103,11 +103,11 @@
            .style("opacity", 0)
          // .append("g")
          //   .attr('transform', 'translate(' + padding.left + ', ' + padding.top + ')');
-       svgScatter = d3.select("div")
-         .append("svg")
-         .attr('width', scatterWidth + padding.left + padding.right)
-         .attr('height', scatterHeight + padding.top + padding.bottom)
-         .style("display", "block")
+      //  svgScatter = d3.select("div")
+      //    .append("svg")
+      //    .attr('width', scatterWidth + padding.left + padding.right)
+      //    .attr('height', scatterHeight + padding.top + padding.bottom)
+      //    .style("display", "block")
 
 
        div.append("g")
@@ -134,7 +134,8 @@
        .attr("class", "line")
        .attr("d", valueLine(data))
        .attr("stroke", "#1f77b4")
-       .attr("stroke-width", "1")
+       .attr("stroke-width", "3")
+       .style("fill", "none")
        .on("mouseover", d => {
          div.transition()
              .duration(100)
