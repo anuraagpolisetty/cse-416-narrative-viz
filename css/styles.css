@@ -21,6 +21,12 @@ div.tooltip {
 	display: block;
 	height: 20px;
 }
+
+.line {
+	fill: none;
+	stroke: steelblue;
+	stroke-width: 2.5px;
+ }
         
 /* Legend Font Style */
 body {

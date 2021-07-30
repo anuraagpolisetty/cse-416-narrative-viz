@@ -20,7 +20,7 @@
          .on('change', function() {
            //filter data by country
            country = this.value;
-           d3.select("svg").html = "";
+           d3.selectAll("svg > *").remove();
 
            makeLineGraph(csvData);
          });

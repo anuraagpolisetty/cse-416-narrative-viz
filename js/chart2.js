@@ -20,7 +20,7 @@
          .on('change', function() {
            //filter data by country
            country = this.value;
-           d3.select("body").html = "";
+           d3.selectAll("svg").remove();
 
            makeLineGraph(csvData);
          });
@@ -139,7 +139,6 @@
          div.transition()
              .duration(100)
              .style("opacity", .9);
-             svgScatter.append()
          div//.html(svgScatter)
            .style("left", (d3.event.pageX) + "px")
            .style("top", (d3.event.pageY) + "px");
@@ -153,18 +152,18 @@
 
 
    function makeScatterPlot(data) {
-   //   let fertility_rate_data = data.map((row) => parseInt(row.fertility_rate));
-   //   let life_expectancy_data = data.map((row) => parseInt(row.life_expectancy));
+     let fertility_rate_data = data.map((row) => parseInt(row.fertility_rate));
+     let life_expectancy_data = data.map((row) => parseInt(row.life_expectancy));
  
-   //   let newMinMaxData = findMinMax(fertility_rate_data, life_expectancy_data);
+     let newMinMaxData = findMinMax(fertility_rate_data, life_expectancy_data);
  
-   //   let scaleAndMapFuncs = drawAxes(newMinMaxData, "fertility_rate", "life_expectancy", svgScatter, 300);
+     let scaleAndMapFuncs = drawAxes(newMinMaxData, "fertility_rate", "life_expectancy", svgScatter, 300);
  
-   //   plotData(scaleAndMapFuncs, svgScatter);
-   //   labels = ["Countries by Life Expectancy and Fertility Rate", "Fertility Rates (Avg Children per Woman)", 'Life Expectancy (years)']
-   //   placements = [10, 7, 10, 20, 60, 295, 'translate(7, 200)rotate(-90)']
+     plotData(scaleAndMapFuncs, svgScatter);
+     labels = ["Countries by Life Expectancy and Fertility Rate", "Fertility Rates (Avg Children per Woman)", 'Life Expectancy (years)']
+     placements = [10, 7, 10, 20, 60, 295, 'translate(7, 200)rotate(-90)']
  
-   //   makeLabels(svgScatter, labels, placements);
+     makeLabels(svgScatter, labels, placements);
    }
 
    function plotData(mapFunctions, svgContainer) {
