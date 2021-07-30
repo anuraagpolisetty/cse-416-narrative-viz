@@ -16,12 +16,25 @@ div.tooltip {
 	border-radius: 8px;           
 	pointer-events: none;         
 }
+
+#nav-placeholder {
+	display: block;
+	height: 20px;
+}
         
 /* Legend Font Style */
 body {
+	padding-top: 100px;
 	font: 11px sans-serif;
 }
         
+section {
+	display: none;
+ }
+ section:target {
+	display: block;
+ }
+ 
 /* Legend Position Style */
 .legend {
 	position:absolute;

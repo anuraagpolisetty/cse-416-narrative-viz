@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>CS 416 Narrative Visualization</title>
+    <link href="css/styles.css" rel="stylesheet" type="text/css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+    <script src="js/index.js"></script>
+    <script>
+      //   pages = [2,3,4,5]
+      //   for(let i = 1; i < pages.length; i++) {
+      //     i == shown ? document.getElementById("page" + i).style.display='block'
+      //                : document.getElementById("page" + i).style.display='none';
+      //   }
+      //   // document.getElementById(shown).style.display='block';
+      //   // document.getElementById(hidden).style.display='none';
+      //   return false;
+      // }
+
+       // show the given page, hide the rest
+       function show(elementID) {
+                // try to find the requested page and alert if it's not found
+                var ele = document.getElementById(elementID);
+                if (!ele) {
+                    console.log(elementID);
+                    console.log("no such element");
+                    return;
+                }
+
+                // get all pages, loop through them and hide them
+                var pages = document.getElementsByClassName('page');
+                for(var i = 0; i < pages.length; i++) {
+                    pages[i].style.display = 'none';
+                }
+
+                if(elementID == 'page1') {
+                  makeMapPlot();
+                }
+
+                // then show the requested page
+                ele.style.display = 'block';
+            }
+      </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+            aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span> 
+              <span class="icon-bar"></span>
+            </button>
+          <!-- <a class="navbar-brand" href="index.html">CS416 - Narrative Visualization</a> -->
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <h1>CS 416 Narrative Visualization</h1>
+          <ul class="nav navbar-nav">
+            <li><a href="index.html" >Description</a></li>
+            <li><a href="chart1.html" >Happiness by Country</a></li>
+            <li><a href="chart2.html" >Happiness over Time</a></li>
+            <li><a href="chart3.html" >Happiness Compared</a></li>
+            <!-- <li><a href="about.html" >About</a></li> -->
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </body>
+</html> 

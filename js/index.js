@@ -6,10 +6,9 @@
     let citiesLivedData = [];
     let countriesGeoJSONData = [];
     let countriesData = [];
-    // let 
     window.onload = function() {
 
-        d3.csv("data/final.csv")
+        d3.csv("data/world-happiness-report-2021.csv")
             .then((data) => {
                 countriesData = data;
                 loadCountriesJSONData();
@@ -36,7 +35,7 @@
             .projection(projection); // use AlbersUSA projection
 
         let color = d3.scaleThreshold()
-        .domain([0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
+        .domain([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
         .range(["rgb(247,251,255)", "rgb(222,235,247)", "rgb(198,219,239)", "rgb(158,202,225)", "rgb(107,174,214)", "rgb(66,146,198)","rgb(33,113,181)","rgb(8,81,156)","rgb(8,48,107)","rgb(3,19,43)"]);
         
         let legendText = ["100", "90", "80", "70", "60", "50", "40", "30", "20", "10"];
@@ -48,7 +47,6 @@
             .append('g')
             .attr('class', 'map');
 
-        // append a div to the body for the tooltip
         let tooltip = d3.select("body")
             .append("div")
             .attr("class", "tooltip")
@@ -59,16 +57,21 @@
         for (let i = 0; i < countriesData.length; i++) {
 
             // Grab Country Code
-            let dataCountryCode = countriesData[i].Country_Code;
+            let curCountry = countriesData[i];
+
+            // let dataCountryCode = countriesData[i].Country_Code;
+            let countryName = curCountry["Country name"]
 
             // Grab data value 
-            let dataValue = countriesData[i].Overall_Score_2016;
+            let dataValue = curCountry["Ladder score"]; //countriesData[i].Overall_Score_2016;
+
+
 
             // Find the corresponding country inside the GeoJSON
             for (let j = 0; j < countriesGeoJSONData.features.length; j++)  {
-                let jsonCountryCode = countriesGeoJSONData.features[j].id;
+                let geoCountryName = countriesGeoJSONData.features[j].properties.name;
 
-                if (dataCountryCode == jsonCountryCode) {
+                if (countryName == geoCountryName) {
                     // Copy the data value into the JSON
                     countriesGeoJSONData.features[j].properties.value = dataValue; 
 
@@ -88,26 +91,20 @@
             .style("stroke-width", "1")
             .style("fill", function(d) {
 
-                // Get data value
                 var value = d.properties.value;
-                // console.log(d.properties.value)
 
                 if (value) {
-                    //If value exists…
                     return color(value);
                 } else {
-                    //If value is undefined…
                     return "rgb(213,222,217)";
                 }
             })
             .on("mouseover", function(d) {
-                console.log(d)      
                 tooltip.transition()        
                 .duration(200)      
                 .style("opacity", .9);   
-                    // tooltip.text(d.)
                     tooltip.html("<strong>Country:</strong> " + d.properties.name + "<br>" 
-                               + "<strong>Press Freedom Score:</strong> " + d.properties.value)
+                               + "<strong>Happiness Score:</strong> " + Math.round(d.properties.value * 1000) / 100)
                 .style("left", (d3.event.pageX) + "px")     
                 .style("top", (d3.event.pageY - 28) + "px");    
             })   
@@ -119,7 +116,6 @@
                 .style("opacity", 0);   
             });
 
-            // Modified Legend Code from Mike Bostock: http://bl.ocks.org/mbostock/3888852
             var legend = d3.select("body").append("svg")
                 .attr("class", "legend")
                 .attr("width", 140)
@@ -145,5 +141,14 @@
 
     }
     // end of make map plot
+
+    // $(function() {
+    //     $('#nav li a').click(function() {
+    //         $(this).closest('li') // select the parent <li> tag
+    //         .addClass('active')// add the active class
+    //         .siblings() // select the siblings of the active tag
+    //         .removeClass('active'); // remove the active class from the other <li>
+    //     });
+    // });
     
 })();
