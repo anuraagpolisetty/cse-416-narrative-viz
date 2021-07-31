@@ -22,6 +22,7 @@ div.tooltip {
 	height: 20px;
 }
 
+
 .line {
 	stroke: steelblue;
 	stroke-width: 2.5px;
@@ -34,10 +35,7 @@ body {
 	font: 11px sans-serif;
 }
 
-#chart2 {
-	overflow-x: auto;
-	white-space: nowrap;
- }
+
         
 section {
 	display: none;

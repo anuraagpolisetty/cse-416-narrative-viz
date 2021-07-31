@@ -2,8 +2,6 @@
 
    const width = 960;
    const height = 500;
-   let statesLivedData = [];
-   let citiesLivedData = [];
    let countriesGeoJSONData = [];
    let countriesData = [];
    window.onload = function() {
@@ -109,27 +107,27 @@
                .style("opacity", 0);   
            });
 
-           var legend = d3.select("body").append("svg")
-               .attr("class", "legend")
-               .attr("width", 140)
-               .attr("height", 200)
-               .selectAll("g")
-               .data(color.domain().slice().reverse())
-               .enter()
-               .append("g")
-               .attr("transform", function(d, i) { return "translate(90," + i * 20 + ")"; });
+      var legend = d3.select("body").append("svg")
+         .attr("class", "legend")
+         .attr("width", 140)
+         .attr("height", 200)
+         .selectAll("g")
+         .data(color.domain().slice().reverse())
+         .enter()
+         .append("g")
+         .attr("transform", function(d, i) { return "translate(90," + i * 20 + ")"; });
 
-           legend.append("rect")
-               .attr("width", 18)
-               .attr("height", 18)
-               .style("fill", color);
+      legend.append("rect")
+         .attr("width", 18)
+         .attr("height", 18)
+         .style("fill", color);
 
-           legend.append("text")
-               .data(legendText)
-               .attr("x", 24)
-               .attr("y", 9)
-               .attr("dy", ".35em")
-               .text(function(d) { return d; });
+      legend.append("text")
+         .data(legendText)
+         .attr("x", 24)
+         .attr("y", 9)
+         .attr("dy", ".35em")
+         .text(function(d) { return d; });
 
 
    }
