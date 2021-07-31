@@ -40,7 +40,7 @@
        
        let legendText = ["100", "90", "80", "70", "60", "50", "40", "30", "20", "10"];
        
-       let svg = d3.select("body")
+       let svg = d3.select("#chart1")
            .append("svg")
            .attr("width", width)
            .attr("height", height)
