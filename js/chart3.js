@@ -23,19 +23,21 @@
       .append("g")
         .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
 
-    let minGDP = d3.min(data, function(d) {
-      return +d["Logged GDP per capita"];
-    });
-    
-    let maxGDP = d3.max(data, function(d) {
-      return +d["Logged GDP per capita"];
-    });
 
     // Scale x Axis
+    let minLife = d3.min(data, function(d) {
+      return +d['Healthy life expectancy']
+    })
+
+    let maxLife = d3.max(data, function(d) {
+      return +d['Healthy life expectancy']
+    })
+
     let xScale = d3.scaleLinear()
-      .domain([minGDP, maxGDP])
+      .domain([minLife, maxLife])
       .range([0, width + 5]);
 
+    // Scale y axis    
     let minHappiness = d3.min(data, function(d) {
       return +d["Ladder score"];
     });
@@ -43,10 +45,18 @@
       return +d["Ladder score"];
     })
     
-    // Scale y axis    
     let yScale = d3.scaleLinear()
       .domain([minHappiness*10, 10*maxHappiness])
       .range([height - 25, 0]);
+
+    // scale z axis (radius)
+    let minGDP = d3.min(data, function(d) {
+      return +d["Logged GDP per capita"];
+    });
+    
+    let maxGDP = d3.max(data, function(d) {
+      return +d["Logged GDP per capita"];
+    });
 
     // draw x axis
     svg.append("g")
@@ -60,7 +70,7 @@
     svg.append("text")
       .attr("x", width/2)
       .attr("y", height + 35)
-      .text("GDP Per Capita")
+      .text("Healthy Life Expectancy")
     
     // draw y axis
     svg.append("g")
@@ -73,6 +83,11 @@
       .attr("y", -10)//height / 2)
       .attr("transform", "rotate(-90)")
       .text("Average Happiness Score")
+
+    // scale z axis (circle radius)
+    let zScale = d3.scaleLinear()
+    .domain([minGDP, maxGDP])
+    .range([ 1, 20]);
 
 
     ////////// make the tooltip
@@ -95,12 +110,12 @@
     .data(data) 
     .enter()
     .append("circle")
-      .attr("cx", function (d) { return xScale(d['Logged GDP per capita']) + 30; } )
+      .attr("cx", function (d) { return xScale(d['Healthy life expectancy']) + 30; } )
       .attr("cy", function (d) { return yScale(d['Ladder score']*10) + 25; } )
-      .attr("r", function (d) { return 10; }) //z(d.happiness); } )
+      .attr("r", function (d) { return zScale(d["Logged GDP per capita"]) }) //z(d.happiness); } )
       .style("fill", function (d) { return "rgb(66,146,198)"; } ) //color(d.happiness); } )
       .style("opacity", 0.5)
-      .style("stroke", "white")
+      // .style("stroke", "black")
       .on("mouseover", function(d) {
         tooltip.transition()
           .duration(200)      
@@ -108,7 +123,8 @@
 
         tooltip.html("<strong>Country:</strong> " + d["Country name"] + "<br>" 
                     + "<strong>Happiness Score:</strong> " + Math.round(d["Ladder score"] * 1000) / 100 + "<br>"
-                    + "<strong>GDP per Capita:</strong> " + (d["Logged GDP per capita"]))
+                    + "<strong>GDP per Capita:</strong> " + (d["Logged GDP per capita"]) + "<br>"
+                    + "<strong>Life Expecatncy</strong> " + Math.round(d["Healthy life expectancy"] * 100)/100)
                     
           .style("left", (d3.event.pageX) + "px")     
           .style("top", (d3.event.pageY - 28) + "px");    
