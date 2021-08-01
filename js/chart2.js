@@ -23,6 +23,9 @@
            d3.selectAll("svg").remove();
 
            makeLineGraph(csvData);
+         if(country != 'Australia') {
+            d3.selectAll(".annotations").remove();
+         }
          });
 
        let allCountries = [...new Set(data.map((row) => row["Country name"]))];
