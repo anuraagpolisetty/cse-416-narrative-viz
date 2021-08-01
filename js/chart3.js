@@ -122,9 +122,9 @@
           .style("opacity", 0.9)
 
         tooltip.html("<strong>Country:</strong> " + d["Country name"] + "<br>" 
-                    + "<strong>Happiness Score:</strong> " + Math.round(d["Ladder score"] * 1000) / 100 + "<br>"
+                    + "<strong>Life Expecatncy</strong> " + Math.round(d["Healthy life expectancy"] * 100)/100 + "<br>"
                     + "<strong>GDP per Capita:</strong> " + (d["Logged GDP per capita"]) + "<br>"
-                    + "<strong>Life Expecatncy</strong> " + Math.round(d["Healthy life expectancy"] * 100)/100)
+                    + "<strong>Happiness Score:</strong> " + Math.round(d["Ladder score"] * 1000) / 100)
                     
           .style("left", (d3.event.pageX) + "px")     
           .style("top", (d3.event.pageY - 28) + "px");    
@@ -134,7 +134,33 @@
             .duration(700)      
             .style("opacity", 0);   
         });
+    
+    
+    // Make the annotation
+    const annotations = [
+      {
 
+        note: {
+          label: "European countries tends to be the happiest, healthiest, and also the richest",
+          title: "Europe prospers"
+        },
+        x: 650,
+        y: 70,
+        dy: 0,
+        dx: -350,
+        subject : {
+          radius: 80,
+          radiusPadding: 0
+        }
+      }
+   ];
+
+   const makeAnnotations = d3.annotation()
+      .type(d3.annotationCalloutCircle)
+      .annotations(annotations);
+   svg
+      .append("g")
+      .call(makeAnnotations)
     }
   )}
 })();

@@ -129,6 +129,43 @@
          .attr("dy", ".35em")
          .text(function(d) { return d; });
 
+      // Make the annotation
+      const annotations = [
+         {
+            note: {
+               label: "The happiest countries are in Scandinavian regions",
+            },
+            x: 510,
+            y: 160,
+            dy: 0,
+            dx: -55,
+            subject : {
+               radius: 40,
+               radiusPadding: 0
+            }
+         },
+         {
+            note: {
+               label: "While the least happiest countries are in the Middle East",
+            },
+            x: 600,
+            y: 250,
+            dy: 100,
+            dx: 0,
+            subject : {
+            radius: 40,
+            radiusPadding: 0
+            }
+         }
+      ];
+
+      const makeAnnotations = d3.annotation()
+         .type(d3.annotationCalloutCircle)
+         .annotations(annotations);
+      svg
+         .append("g")
+         .call(makeAnnotations)
+
 
    }
    // end of make map plot

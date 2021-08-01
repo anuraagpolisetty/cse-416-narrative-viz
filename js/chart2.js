@@ -164,6 +164,27 @@
                   .duration(700)      
                   .style("opacity", 0);   
             });
+
+      // Draw annotations
+      const annotations = [
+         {
+
+            note: {
+               label: "A dip in happiness is noticeable especially in recent years",
+               title: "A downward trend"
+            },
+            x: 707,
+            y: 370,
+            dy: -250,
+            dx: -50
+         }
+      ];
+
+      const makeAnnotations = d3.annotation()
+         .annotations(annotations);
+      svg
+         .append("g")
+         .call(makeAnnotations)
    }
  
    function drawLineAxes(xScale, yScale, element) {
@@ -196,5 +217,8 @@
        .text("Average Happiness Score")
 
    }
+
+
+  
 
  })();

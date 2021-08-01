@@ -52,3 +52,12 @@ section {
 	left:800px;
 	top:350px;
 }
+
+/* Annotations */
+/* .annotations .annotation-connector, .annotation-subject, .annotation-subject path.subject {
+	fill: none;
+	stroke: #BB998C;
+} */
+.annotation-subject path.subject {
+	fill: none;
+}
