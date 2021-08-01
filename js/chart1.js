@@ -45,7 +45,7 @@
            .append('g')
            .attr('class', 'map');
 
-       let tooltip = d3.select("body")
+       let tooltip = d3.select("#chart1")
            .append("div")
            .attr("class", "tooltip")
            .style("opacity", 0);
@@ -107,7 +107,7 @@
                .style("opacity", 0);   
            });
 
-      var legend = d3.select("body").append("svg")
+      var legend = d3.select("#chart1").append("svg")
          .attr("class", "legend")
          .attr("width", 140)
          .attr("height", 200)

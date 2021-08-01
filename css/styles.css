@@ -56,4 +56,5 @@ section {
 /* Annotations */
 .annotation-subject path.subject {
 	fill: none;
+	stroke-width: 2.5px;
 }
