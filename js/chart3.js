@@ -95,19 +95,17 @@
     .data(data) 
     .enter()
     .append("circle")
-      .attr("cx", function (d) { return xScale(d['Logged GDP per capita']); } )
-      .attr("cy", function (d) { return yScale(d['Ladder score']*10); } )
+      .attr("cx", function (d) { return xScale(d['Logged GDP per capita']) + 30; } )
+      .attr("cy", function (d) { return yScale(d['Ladder score']*10) + 25; } )
       .attr("r", function (d) { return 10; }) //z(d.happiness); } )
       .style("fill", function (d) { return "rgb(66,146,198)"; } ) //color(d.happiness); } )
       .style("opacity", 0.5)
       .style("stroke", "white")
       .on("mouseover", function(d) {
-        console.log(d);
         tooltip.transition()
           .duration(200)      
           .style("opacity", 0.9)
 
-        console.log(d["Logged GDP per capita"]);
         tooltip.html("<strong>Country:</strong> " + d["Country name"] + "<br>" 
                     + "<strong>Happiness Score:</strong> " + Math.round(d["Ladder score"] * 1000) / 100 + "<br>"
                     + "<strong>GDP per Capita:</strong> " + (d["Logged GDP per capita"]))

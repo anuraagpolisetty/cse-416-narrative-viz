@@ -61,7 +61,7 @@
          .attr('width', width + margin.left + margin.right)
          .attr('height', height + margin.top + margin.bottom)
        .append("g")
-         // .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
+         .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
 
      
      minYear = d3.min(data, function(d) {
@@ -85,7 +85,7 @@
 
      // Scale y axis    
      let yScale = d3.scaleLinear()
-       .domain([minHappiness, maxHappiness])
+       .domain([minHappiness*10, maxHappiness*10])
        .range([height - 25, 0]);
 
      drawLineAxes(xScale, yScale, svg)
@@ -96,59 +96,74 @@
        scatterWidth = 300 - padding.left - padding.right;
        scatterHeight = 300 - padding.top - padding.bottom;
        
-       div = d3.select("#chart2")
+       tooltip = d3.select("#chart2")
          .append("div")
            .attr("class", "tooltip")
-           
            .style("opacity", 0)
-         // .append("g")
-         //   .attr('transform', 'translate(' + padding.left + ', ' + padding.top + ')');
-      //  svgScatter = d3.select("div")
-      //    .append("svg")
-      //    .attr('width', scatterWidth + padding.left + padding.right)
-      //    .attr('height', scatterHeight + padding.top + padding.bottom)
-      //    .style("display", "block")
 
-
-       div.append("g")
+      tooltip.append("g")
            .attr('transform', 'translate(10,10)')
-           .call(d3.axisBottom()
-                 .scale(xScale)
-                 .tickFormat(d3.format("d"))
-                 .ticks(20)
-           );
+         //   .call(d3.axisBottom()
+         //         .scale(xScale)
+         //         .tickFormat(d3.format("d"))
+         //         .ticks(20)
+         //   );
 
-
-     // var toolTip = d3.select("div")  
-     //   .append("svg")
-     //     .attr('width', scatterWidth)
-     //     .attr('height', scatterHeight)
-       // .html("<p>the svg inside a tooltip: </p><div id='tipDiv'></div>");
      
      // define the line
      let valueLine = d3.line()
          .x(function(d) {  return xScale(d['year']) + 30})
-         .y(function(d) {  return yScale(d['Life Ladder']) + 25})
+         .y(function(d) {  return yScale(d['Life Ladder']*10) + 25})
      
-     svg.append("path")
+      svg.append("path")
        .attr("class", "line")
        .attr("d", valueLine(data))
        .attr("stroke", "#1f77b4")
        .attr("stroke-width", "3")
        .style("fill", "none")
-       .on("mouseover", d => {
-         div.transition()
-             .duration(100)
-             .style("opacity", .9);
-         div//.html(svgScatter)
-           .style("left", (d3.event.pageX) + "px")
-           .style("top", (d3.event.pageY) + "px");
-       })
-       .on("mouseout", d => {
-           div.transition()
-             .duration(100)
-             .style("opacity", 0);
-       })
+      //  .on("mouseover", function(d) {
+      //     console.log(d)
+      //    tooltip.transition()
+      //        .duration(100)
+      //        .style("opacity", .9);
+      //    tooltip.html("<strong>Happiness Score:</strong> " + d["Ladder score"])// + Math.round(d["Ladder score"] * 1000) / 100 + "<br>") //.html(svgScatter)
+      //      .style("left", (d3.event.pageX) + "px")
+      //      .style("top", (d3.event.pageY) + "px");
+      //  })
+      //  .on("mouseout", d => {
+      //      tooltip.transition()
+      //        .duration(100)
+      //        .style("opacity", 0);
+      //  })
+
+      svg.append('g')
+         .selectAll("dot")
+         .data(data) 
+         .enter()
+         .append("circle")
+            .attr("cx", function (d) { return xScale(d['year'])+30; } )
+            .attr("cy", function (d) { return yScale(d['Life Ladder']*10) + 25; } )
+            .attr("r", function (d) { return 7.5; }) //z(d.happiness); } )
+            .style("fill", function (d) { return "rgb(8,48,107)"; } ) //color(d.happiness); } )
+            .style("opacity", 0.5)
+            .style("stroke", "black")
+            .on("mouseover", function(d) {
+            tooltip.transition()
+               .duration(200)      
+               .style("opacity", 0.9)
+
+            tooltip.html("<strong>Country:</strong> " + country + "<br>" 
+                        + "<strong>Year:</strong> " + d["year"] + "<br>"
+                        + "<strong>Happiness Score:</strong> " + Math.round(d["Life Ladder"] * 1000) / 100 + "<br>")
+                        
+               .style("left", (d3.event.pageX) + "px")     
+               .style("top", (d3.event.pageY - 28) + "px");    
+            })   
+            .on("mouseout", function(d) {       
+                  tooltip.transition()        
+                  .duration(700)      
+                  .style("opacity", 0);   
+            });
    }
  
    function drawLineAxes(xScale, yScale, element) {

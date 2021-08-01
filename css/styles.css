@@ -35,7 +35,9 @@ body {
 	font: 11px sans-serif;
 }
 
-
+#chart2 svg g {
+	margin-left: 300px;
+}
         
 section {
 	display: none;
