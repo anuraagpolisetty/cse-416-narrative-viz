@@ -49,15 +49,11 @@ section {
 /* Legend Position Style */
 .legend {
 	position:absolute;
-	left:800px;
+	right:80px;
 	top:350px;
 }
 
 /* Annotations */
-/* .annotations .annotation-connector, .annotation-subject, .annotation-subject path.subject {
-	fill: none;
-	stroke: #BB998C;
-} */
 .annotation-subject path.subject {
 	fill: none;
 }
